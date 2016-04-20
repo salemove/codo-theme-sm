@@ -5,7 +5,7 @@ Templater   = require './templater'
 TreeBuilder = require './tree_builder'
 
 Theme = require './_theme'
-Codo  = require '../../../lib/codo'
+Codo  = require 'codo'
 
 module.exports = class Theme.Theme
 
