@@ -1,21 +1,11 @@
 #footer
 
-  By
+  Powered by
   %a{href: 'https://github.com/coffeedoc/codo', title: 'CoffeeScript API documentation generator'}
     Codo
-  = @environment.version
-
   &#10034;
 
   Press H to see the keyboard shortcuts
-
-  &#10034;
-
-  %a{href: 'http://twitter.com/netzpirat', target: '_parent'} @netzpirat
-
-  &#10034;
-
-  %a{href: 'http://twitter.com/_inossidabile', target: '_parent'} @_inossidabile
 
 %iframe#search_frame
 
