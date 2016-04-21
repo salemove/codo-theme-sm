@@ -7,10 +7,6 @@
     %a{target: '_self', href: 'mixin_list.html'}
       Mixins
 
-  - if @environment.visibleFiles().length > 0
-    %a{target: '_self', href: 'file_list.html'}
-      Files
-
   - if @environment.visibleMethods().length > 0
     %a{target: '_self', href: 'method_list.html'}
       Methods

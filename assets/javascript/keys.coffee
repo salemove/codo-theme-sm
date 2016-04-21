@@ -51,7 +51,6 @@ $ ->
   key 'c', -> loadSearch 'class_list.html', 'class_list_link'
   key 'm', -> loadSearch 'method_list.html', 'method_list_link'
   key 'i', -> loadSearch 'mixin_list.html', 'mixin_list_link'
-  key 'f', -> loadSearch 'file_list.html', 'file_list_link'
   key 'e', -> loadSearch 'extra_list.html', 'extra_list_link'
 
   # Show help

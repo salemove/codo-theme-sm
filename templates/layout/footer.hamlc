@@ -44,9 +44,6 @@
       %span I
       Show mixin list
     %li
-      %span F
-      Show file list
-    %li
       %span M
       Show method list
     %li

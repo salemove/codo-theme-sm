@@ -32,7 +32,6 @@ module.exports = class Theme.Theme
 
     @renderClasses()
     @renderMixins()
-    @renderFiles()
     @renderExtras()
     @renderIndex()
     @renderFuzzySearchData()
@@ -130,7 +129,6 @@ module.exports = class Theme.Theme
   renderAlphabeticalIndex: ->
     classes = {}
     mixins  = {}
-    files   = {}
 
     # Sort in character group
     for code in [97..122]
@@ -138,7 +136,6 @@ module.exports = class Theme.Theme
       map  = [
         [@environment.visibleClasses(), classes],
         [@environment.visibleMixins(), mixins],
-        [@environment.visibleFiles(), files]
       ]
 
       for [list, storage] in map
@@ -150,13 +147,10 @@ module.exports = class Theme.Theme
     @render 'alphabetical_index', 'alphabetical_index.html',
       classes: classes
       mixins:  mixins
-      files:   files
 
   renderIndex: ->
     list = if @environment.visibleClasses().length > 0
         'class_list.html'
-      else if @environment.visibleFiles().length > 0
-        'file_list.html'
       else if @environment.visibleMixins().length > 0
         'mixin_list.html'
       else if @environment.visibleExtras().length > 0
@@ -193,16 +187,6 @@ module.exports = class Theme.Theme
         entity: mixin
         breadcrumbs: @generateBreadcrumbs(mixin.name.split '.')
 
-  renderFiles: ->
-    @render 'file_list', 'file_list.html',
-      tree: TreeBuilder.build @environment.visibleFiles(), (file) ->
-        [file.basename, file.dirname.split('/')]
-
-    for file in @environment.visibleFiles()
-      @render 'file', @pathFor('file', file),
-        entity: file,
-        breadcrumbs: @generateBreadcrumbs(file.name.split '/')
-
   renderExtras: ->
     @render 'extra_list', 'extra_list.html',
       tree: TreeBuilder.build @environment.visibleExtras(), (extra) ->
@@ -219,7 +203,6 @@ module.exports = class Theme.Theme
     everything = [
       @environment.visibleClasses(),
       @environment.visibleMixins(),
-      @environment.visibleFiles(),
       @environment.visibleExtras()
     ]
 
