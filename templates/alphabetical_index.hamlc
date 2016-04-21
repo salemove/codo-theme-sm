@@ -53,21 +53,4 @@
                         %small
                           = surround '(', ')', -> mixin.namespace
 
-        - if @environment.visibleFiles().length > 0
-          %h2 File Listing A-Z
-
-          .index
-            - for char, files of @files
-              %ul
-                %li.letter= char
-                %ul
-                  - for file in files
-                    %li
-                      %a{href: @pathFor('file', file, @path)}
-                        = file.basename
-
-                      - if file.dirname
-                        %small
-                          = surround '(', ')', -> file.dirname
-
     != @render 'layout/footer'

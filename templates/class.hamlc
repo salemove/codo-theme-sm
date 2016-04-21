@@ -19,10 +19,6 @@
           %span.private.note.title Private
 
       %table.box
-        %tr
-          %td Defined in:
-          %td= @entity.file.name
-
         - if @entity.parent
           %tr
             %td Inherits:
@@ -120,7 +116,7 @@
 
       - staticMethods  = @entity.effectiveMethods().filter (m) -> m.kind == 'static' && m.visible
       - dynamicMethods = @entity.effectiveMethods().filter (m) -> m.kind == 'dynamic' && m.name != 'constructor' && m.visible
-      - constructor    = @entity.effectiveMethods().filter (m) -> m.kind == 'dynamic' && m.name == 'constructor'
+      - constructor    = @entity.effectiveMethods().filter (m) -> m.kind == 'dynamic' && m.name == 'constructor' && m.visible
 
       - if staticMethods.length > 0
         %h2 Class Method Summary
