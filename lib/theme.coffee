@@ -47,23 +47,23 @@ module.exports = class Theme.Theme
     @pathFor(@environment.reference(needle), undefined, prefix)
 
   anchorFor: (entity) ->
-    if entity instanceof Codo.Meta.Method
+    if entity?.constructor.name == "Method"
       "#{entity.name}-#{entity.kind}"
-    else if entity instanceof Codo.Entities.Property
+    else if entity?.constructor.name == "Property"
       "#{entity.name}-property"
-    else if entity instanceof Codo.Entities.Variable
+    else if entity?.constructor.name == "Variable"
       "#{entity.name}-variable"
 
   pathFor: (kind, entity, prefix='') ->
     unless entity?
       entity = kind
-      kind = 'class'  if entity instanceof Codo.Entities.Class
-      kind = 'mixin'  if entity instanceof Codo.Entities.Mixin
-      kind = 'file'   if entity instanceof Codo.Entities.File
-      kind = 'extra'  if entity instanceof Codo.Entities.Extra
-      kind = 'method' if entity.entity instanceof Codo.Meta.Method
-      kind = 'variable' if entity.entity instanceof Codo.Entities.Variable
-      kind = 'property' if entity.entity instanceof Codo.Entities.Property
+      kind = 'class'  if entity.constructor.name == "Class"
+      kind = 'mixin'  if entity.constructor.name == "Mixin"
+      kind = 'file'   if entity.constructor.name == "File"
+      kind = 'extra'  if entity.constructor.name == "Extra"
+      kind = 'method' if entity.entity?.constructor.name == "Method"
+      kind = 'variable' if entity.entity?.constructor.name == "Variable"
+      kind = 'property' if entity.entity?.constructor.name == "Property"
 
     switch kind
       when 'file', 'extra'
