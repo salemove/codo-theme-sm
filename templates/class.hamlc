@@ -19,10 +19,6 @@
           %span.private.note.title Private
 
       %table.box
-        %tr
-          %td Defined in:
-          %td= @entity.file.name
-
         - if @entity.parent
           %tr
             %td Inherits:
