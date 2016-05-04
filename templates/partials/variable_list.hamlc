@@ -6,5 +6,5 @@
         \=
       %dd
         %pre
-          %code.coffeescript= variable.value
+          %code= variable.value
         != @render 'partials/documentation', documentation: variable.documentation, kind: 'variable'
