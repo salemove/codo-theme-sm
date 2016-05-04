@@ -1,6 +1,6 @@
 {
   "name": "codo-theme-sm",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "SaleMove Codo theme",
   "main": "index.js",
   "scripts": {
