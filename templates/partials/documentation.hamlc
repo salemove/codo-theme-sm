@@ -41,7 +41,7 @@
             %h4
               = example.title
             %pre
-              %code.coffeescript= example.code
+              %code= example.code
 
   .tags
     - if @documentation.params
