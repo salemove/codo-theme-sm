@@ -1,8 +1,16 @@
 $ ->
+  openList = (klass) ->
+    $('.toggled').removeClass('visible')
+    $(".toggled.#{klass}").addClass('visible')
+
+  window.openClassList = -> openList('class_list')
+  window.openMethodList = -> openList('method_list')
+  window.openMixinList = -> openList('mixin_list')
+  window.openExtraList = -> openList('extra_list')
 
   # Create stripes
   window.createStripes = ->
-    $('#content.list li:visible').each (i, el) ->
+    $('.list li:visible').each (i, el) ->
       if i % 2 is 0 then $(el).addClass('stripe') else $(el).removeClass('stripe')
 
   # Indent nested Lists
@@ -15,7 +23,7 @@ $ ->
   #
   # Add tree arrow links
   #
-  $('#content.tree ul > ul').each ->
+  $('.tree ul > ul').each ->
     $(@).prev().prepend $('<a href="#" class="toggle"></a>')
 
   #
@@ -25,17 +33,17 @@ $ ->
     search = $(@).val().toLowerCase()
 
     if search.length == 0
-      $('#content.list ul li').each ->
-        if $('#content').hasClass 'tree'
+      $('.list ul li').each ->
+        if $('.list').hasClass 'tree'
           $(@).removeClass 'result'
           $(@).css 'padding-left', $(@).data 'padding'
         $(@).show()
     else
-      $('#content.list ul li').each ->
+      $('.list ul li').each ->
         if $(@).find('a').text().toLowerCase().indexOf(search) == -1
           $(@).hide()
         else
-          if $('#content').hasClass 'tree'
+          if $('.list').hasClass 'tree'
             $(@).addClass 'result'
             padding = $(@).css('padding-left')
             $(@).data 'padding', padding unless padding == '0px'
@@ -47,7 +55,7 @@ $ ->
   #
   # Collapse/expand sub trees
   #
-  $('#content.tree a.toggle').click ->
+  $('.tree a.toggle').click ->
     $(@).toggleClass 'collapsed'
     $(@).parent().next().toggle()
     window.createStripes()
@@ -55,5 +63,5 @@ $ ->
   #
   # Initialize
   #
-  indentTree $('#content.list > ul'), 20
+  indentTree $('.list > ul'), 20
   createStripes()

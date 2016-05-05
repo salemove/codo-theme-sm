@@ -1,0 +1,7 @@
+%ul
+  - for method in @environment.visibleMethods()
+    %li{deprecated: if method.documentation?.deprecated then true else false}
+      %a{href: @pathFor('method', method, @path), title: method.entity.name}
+        = method.entity.shortSignature()
+      %small
+        = surround '(', ')', -> method.owner.name

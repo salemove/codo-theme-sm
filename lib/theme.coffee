@@ -23,12 +23,19 @@ module.exports = class Theme.Theme
     @templater  = new Templater(@environment.options.output)
     @referencer = new Codo.Tools.Referencer(@environment)
 
+    @classTree = TreeBuilder.build @environment.visibleClasses(), (klass) ->
+      [klass.basename, klass.namespace.split('.')]
+    @mixinTree = TreeBuilder.build @environment.visibleMixins(), (klass) ->
+      [klass.basename, klass.namespace.split('.')]
+    @extraTree = TreeBuilder.build @environment.visibleExtras(), (extra) ->
+      result = extra.name.split('/')
+      [result.pop(), result]
+
   compile: ->
     @templater.compileAsset('javascript/application.js')
     @templater.compileAsset('stylesheets/application.css')
 
     @renderAlphabeticalIndex()
-    @render 'method_list', 'method_list.html'
 
     @renderClasses()
     @renderMixins()
@@ -106,6 +113,9 @@ module.exports = class Theme.Theme
   render: (source, destination, context={}) ->
     globalContext =
       environment: @environment
+      classTree:   @classTree
+      mixinTree:   @mixinTree
+      extraTree:   @extraTree
       path:        @calculatePath(destination)
       strftime:    strftime
       anchorFor:   @anchorFor
@@ -157,31 +167,18 @@ module.exports = class Theme.Theme
     @render 'index', 'index.html', main: main
 
   renderClasses: ->
-    @render 'class_list', 'class_list.html',
-      tree: TreeBuilder.build @environment.visibleClasses(), (klass) ->
-        [klass.basename, klass.namespace.split('.')]
-
     for klass in @environment.visibleClasses()
       @render 'class', @pathFor('class', klass),
         entity: klass,
         breadcrumbs: @generateBreadcrumbs(klass.name.split '.')
 
   renderMixins: ->
-    @render 'mixin_list', 'mixin_list.html',
-      tree: TreeBuilder.build @environment.visibleMixins(), (klass) ->
-        [klass.basename, klass.namespace.split('.')]
-
     for mixin in @environment.visibleMixins()
       @render 'mixin', @pathFor('mixin', mixin),
         entity: mixin
         breadcrumbs: @generateBreadcrumbs(mixin.name.split '.')
 
   renderExtras: ->
-    @render 'extra_list', 'extra_list.html',
-      tree: TreeBuilder.build @environment.visibleExtras(), (extra) ->
-        result = extra.name.split('/')
-        [result.pop(), result]
-
     for extra in @environment.visibleExtras()
       @render 'extra', @pathFor('extra', extra),
         entity: extra
