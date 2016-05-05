@@ -10,7 +10,7 @@ $ ->
 
   # Create stripes
   window.createStripes = ->
-    $('.list li:visible').each (i, el) ->
+    $('.list li').each (i, el) ->
       if i % 2 is 0 then $(el).addClass('stripe') else $(el).removeClass('stripe')
 
   # Indent nested Lists
