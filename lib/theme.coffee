@@ -149,23 +149,12 @@ module.exports = class Theme.Theme
       mixins:  mixins
 
   renderIndex: ->
-    list = if @environment.visibleClasses().length > 0
-        'class_list.html'
-      else if @environment.visibleMixins().length > 0
-        'mixin_list.html'
-      else if @environment.visibleExtras().length > 0
-        'extra_list.html'
-      else
-        'method_list.html'
-
     main = if @environment.options.readme
       @pathFor('extra', @environment.findReadme())
     else
       'alphabetical_index.html'
 
-    @render 'frames', 'index.html',
-      list: list
-      main: main
+    @render 'index', 'index.html', main: main
 
   renderClasses: ->
     @render 'class_list', 'class_list.html',

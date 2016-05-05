@@ -45,14 +45,6 @@ $ ->
     window.createStripes()
 
   #
-  # Navigate from a Search List
-  #
-  $('body #content.list ul').on 'click', 'li', (event) ->
-    link = $(@).find('a:not(.toggle)').attr('href')
-    top.frames['main'].location.href = link if link && link != '#'
-    event.preventDefault()
-
-  #
   # Collapse/expand sub trees
   #
   $('#content.tree a.toggle').click ->
