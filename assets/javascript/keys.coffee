@@ -19,13 +19,14 @@ $ ->
 
   # Hide list navigation
   key 'l, shift+l', ->
-    alert('Not implemented!')
+    $('body').toggleClass('sidebar_hidden')
+    $('#sidebar').toggleClass('hidden')
 
   # List navigation
-  key 'c, shift+c', -> alert('Not implemented!')
-  key 'm, shift+m', -> alert('Not implemented!')
-  key 'i, shift+i', -> alert('Not implemented!')
-  key 'e, shift+e', -> alert('Not implemented!')
+  key 'c, shift+c', window.openClassList
+  key 'm, shift+m', window.openMethodList
+  key 'i, shift+i', window.openMixinList
+  key 'e, shift+e', window.openExtraList
 
   # Show help
   key 'h, shift+h', ->
