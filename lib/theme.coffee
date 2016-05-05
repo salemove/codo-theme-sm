@@ -142,7 +142,7 @@ module.exports = class Theme.Theme
         for entry in list
           if entry.basename.toLowerCase()[0] == char
             storage[char] ?= []
-            storage[char].push(entry) 
+            storage[char].push(entry)
 
     @render 'alphabetical_index', 'alphabetical_index.html',
       classes: classes
