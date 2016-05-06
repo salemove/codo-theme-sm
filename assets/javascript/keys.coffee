@@ -20,7 +20,6 @@ $ ->
   # Hide list navigation
   key 'l, shift+l', ->
     $('body').toggleClass('sidebar_hidden')
-    $('#sidebar').toggleClass('hidden')
 
   # List navigation
   key 'c, shift+c', window.openClassList

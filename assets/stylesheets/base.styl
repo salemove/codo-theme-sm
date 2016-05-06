@@ -1,10 +1,54 @@
 body {
-  padding: 0 5px 0 305px;
   font-family: "Lucida Sans", "Lucida Grande", Verdana, Arial, sans-serif;
   font-size: 13px;
 
+  padding: 0 5px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  max-width: 905px;
+
+  #sidebar {
+    display: inline-block;
+    vertical-align: top;
+    width: 300px;
+    height: 100%;
+  }
+  #sidebar_content {
+    overflow: hidden;
+    width: 300px;
+  }
+  #content_wrapper {
+    display: inline-block;
+    vertical-align: top;
+
+    // Not really sure how this is calculated, but it's what worked
+    max-width: 575px;
+  }
+
+  @media (max-width: 904px) {
+    #sidebar, #sidebar_content {
+      width: 100%;
+    }
+	#content_wrapper {
+	  max-width: 100%;
+	}
+  }
+  @media (min-width: 905px) {
+    #sidebar #sidebar_content {
+      position: fixed;
+    }
+  }
+
   &.sidebar_hidden {
-	padding: 0 5px;
+    #sidebar {
+      display: none;
+    }
+    #content_wrapper {
+      max-width: 100%;
+    }
   }
 }
 
@@ -208,16 +252,5 @@ h2 {
         }
       }
     }
-  }
-}
-
-#sidebar {
-  position: absolute;
-  left: 0;
-  width: 300px;
-  height: 100%;
-
-  &.hidden {
-	display: none;
   }
 }
