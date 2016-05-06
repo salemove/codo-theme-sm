@@ -1,7 +1,14 @@
 $ ->
+  OPEN_LIST_KEY = 'open_list'
+
   openList = (klass) ->
     $('.toggled').removeClass('visible')
     $(".toggled.#{klass}").addClass('visible')
+    sessionStorage.setItem(OPEN_LIST_KEY, klass)
+
+  # Reopen most recently opened list on page load
+  if klass = sessionStorage.getItem(OPEN_LIST_KEY)
+    openList(klass)
 
   window.openClassList = -> openList('class_list')
   window.openMethodList = -> openList('method_list')
