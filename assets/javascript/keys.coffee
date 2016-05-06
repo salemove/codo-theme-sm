@@ -18,8 +18,19 @@ $ ->
     $('#fuzzySearch').hide()
 
   # Hide list navigation
+  SIDEBAR_HIDDEN_KEY = 'sidebar_hidden'
+  HIDE_SIDEBAR_CLASS = 'sidebar_hidden'
   key 'l, shift+l', ->
-    $('body').toggleClass('sidebar_hidden')
+    if $('body').hasClass(HIDE_SIDEBAR_CLASS)
+      $('body').removeClass(HIDE_SIDEBAR_CLASS)
+      sessionStorage.removeItem(SIDEBAR_HIDDEN_KEY)
+    else
+      $('body').addClass(HIDE_SIDEBAR_CLASS)
+      sessionStorage.setItem(SIDEBAR_HIDDEN_KEY, 'true')
+
+  # Restore most recent list visibility state on page load
+  if sessionStorage.getItem(SIDEBAR_HIDDEN_KEY)?
+    $('body').addClass(HIDE_SIDEBAR_CLASS)
 
   # List navigation
   key 'c, shift+c', window.openClassList
