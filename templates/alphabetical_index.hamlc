@@ -3,55 +3,56 @@
   != @render 'layout/header'
   %body
     != @render 'layout/sidebar'
-    != @render 'layout/intro'
+    #content_wrapper
+      != @render 'layout/intro'
 
-    #content
-      %h1.noborder.title= @title
+      #content
+        %h1.noborder.title= @title
 
-      #listing
-        %h1.alphaindex Alphabetical Index
+        #listing
+          %h1.alphaindex Alphabetical Index
 
-        %h2 Extra File Listing
+          %h2 Extra File Listing
 
-        - if @environment.visibleExtras().length > 0
-          %ul#files
-            - for extra in @environment.visibleExtras()
-              %li
-                %a{href: @pathFor('extra', extra, @path), title: extra.name}
-                  = extra.name
+          - if @environment.visibleExtras().length > 0
+            %ul#files
+              - for extra in @environment.visibleExtras()
+                %li
+                  %a{href: @pathFor('extra', extra, @path), title: extra.name}
+                    = extra.name
 
-        - if @environment.visibleClasses().length > 0
-          %h2 Class Listing A-Z
+          - if @environment.visibleClasses().length > 0
+            %h2 Class Listing A-Z
 
-          .index
-            - for char, classes of @classes
-              %ul
-                %li.letter= char
+            .index
+              - for char, classes of @classes
                 %ul
-                  - for klass in classes
-                    %li
-                      %a{href: @pathFor('class', klass, @path)}
-                        = klass.basename
+                  %li.letter= char
+                  %ul
+                    - for klass in classes
+                      %li
+                        %a{href: @pathFor('class', klass, @path)}
+                          = klass.basename
 
-                      - if klass.namespace
-                        %small
-                          = surround '(', ')', -> klass.namespace
+                        - if klass.namespace
+                          %small
+                            = surround '(', ')', -> klass.namespace
 
-        - if @environment.visibleMixins().length > 0
-          %h2 Mixins Listing A-Z
+          - if @environment.visibleMixins().length > 0
+            %h2 Mixins Listing A-Z
 
-          .index
-            - for char, mixins of @mixins
-              %ul
-                %li.letter= char
+            .index
+              - for char, mixins of @mixins
                 %ul
-                  - for mixin in mixins
-                    %li
-                      %a{href: @pathFor('mixin', mixin, @path)}
-                        = mixin.basename
+                  %li.letter= char
+                  %ul
+                    - for mixin in mixins
+                      %li
+                        %a{href: @pathFor('mixin', mixin, @path)}
+                          = mixin.basename
 
-                      - if mixin.namespace
-                        %small
-                          = surround '(', ')', -> mixin.namespace
+                        - if mixin.namespace
+                          %small
+                            = surround '(', ')', -> mixin.namespace
 
-    != @render 'layout/footer'
+      != @render 'layout/footer'

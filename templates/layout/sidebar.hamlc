@@ -1,35 +1,36 @@
 #sidebar
-  %h1.toggled.class_list.visible Class List
-  %h1.toggled.method_list        Method List
-  %h1.toggled.extra_list         Extra List
-  %h1.toggled.mixin_list         Mixin List
+  #sidebar_content
+    %h1.toggled.class_list.visible Class List
+    %h1.toggled.method_list        Method List
+    %h1.toggled.extra_list         Extra List
+    %h1.toggled.mixin_list         Mixin List
 
-  %nav
-    - if @environment.visibleClasses().length > 0
-      %a{onclick: 'openClassList();'}
-        Classes
+    %nav
+      - if @environment.visibleClasses().length > 0
+        %a{onclick: 'openClassList();'}
+          Classes
 
-    - if @environment.visibleMixins().length > 0
-      %a{onclick: 'openMixinList();'}
-        Mixins
+      - if @environment.visibleMixins().length > 0
+        %a{onclick: 'openMixinList();'}
+          Mixins
 
-    - if @environment.visibleMethods().length > 0
-      %a{onclick: 'openMethodList();'}
-        Methods
+      - if @environment.visibleMethods().length > 0
+        %a{onclick: 'openMethodList();'}
+          Methods
 
-    - if @environment.visibleExtras().length > 0
-      %a{onclick: 'openExtraList();'}
-        Extras
+      - if @environment.visibleExtras().length > 0
+        %a{onclick: 'openExtraList();'}
+          Extras
 
-  #search
-    Search:
-    %input{ type: 'text' }
+    #search
+      Search:
+      %input{ type: 'text' }
 
-  .tree.list.toggled.class_list.visible
-    != @render 'partials/sidebar_class_list', tree: @classTree
-  .tree.list.toggled.mixin_list
-    != @render 'partials/sidebar_mixin_list', tree: @mixinTree
-  .tree.list.toggled.extra_list
-    != @render 'partials/sidebar_extra_list', tree: @extraTree
-  .list.toggled.method_list
-    != @render 'partials/sidebar_method_list'
+    .tree.list.toggled.class_list.visible
+      != @render 'partials/sidebar_class_list', tree: @classTree
+    .tree.list.toggled.mixin_list
+      != @render 'partials/sidebar_mixin_list', tree: @mixinTree
+    .tree.list.toggled.extra_list
+      != @render 'partials/sidebar_extra_list', tree: @extraTree
+    .list.toggled.method_list
+      != @render 'partials/sidebar_method_list'
