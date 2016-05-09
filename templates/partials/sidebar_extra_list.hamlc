@@ -1,0 +1,14 @@
+- createLevel = (tree) =>
+  %ul
+    - for entry in tree
+      %li
+        - if entry.entity
+          %a{href: @pathFor('extra', entry.entity, @path)}
+            = entry.name
+        - else
+          %span
+            = entry.name
+
+      = createLevel(entry.children) if entry.children.length > 0
+
+= createLevel @tree

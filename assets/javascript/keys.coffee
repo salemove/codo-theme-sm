@@ -1,8 +1,5 @@
 $ ->
 
-  loadSearch = (url, link) ->
-    parent.frames.list.location.href = url unless /#{ url }$/.test parent.frames.list.location.href
-
   # Allow ESC to blur #search
   key.filter = (e) ->
     tagname = (e.target || e.srcElement).tagName
@@ -12,63 +9,42 @@ $ ->
   key 's, shift+s', (e) ->
     e.preventDefault()
 
-    try
-      parent.frames.list.$('#search input').focus().select()
-
-    try
-      $('#search input').focus().select()
+    $('#search input').focus().select()
 
   # Unblur the search input
   key 'esc', ->
-    try
-      parent.frames.list.$('#search input').blur()
-      parent.frames.main.$('#help').hide()
-      parent.frames.main.$('#fuzzySearch').hide()
-
-    try
-      parent.$("#search .active").click()
-      parent.$('#help').hide()
-      parent.$('#fuzzySearch').hide()
-
-    try
-      $('#search input').blur()
-      $('#help').hide()
-      $('#fuzzySearch').hide()
+    $('#search input').blur()
+    $('#help').hide()
+    $('#fuzzySearch').hide()
 
   # Hide list navigation
-  # FIXME: Manually resize the frame confuses the toggle
+  SIDEBAR_HIDDEN_KEY = 'sidebar_hidden'
+  HIDE_SIDEBAR_CLASS = 'sidebar_hidden'
   key 'l, shift+l', ->
-    body = $(parent.document.body)
-
-    if body.data('toggled')
-      parent.document.body.cols = '25%, *'
-      body.data 'toggled', false
+    if $('body').hasClass(HIDE_SIDEBAR_CLASS)
+      $('body').removeClass(HIDE_SIDEBAR_CLASS)
+      sessionStorage.removeItem(SIDEBAR_HIDDEN_KEY)
     else
-      parent.document.body.cols = '0, *'
-      body.data 'toggled', true
+      $('body').addClass(HIDE_SIDEBAR_CLASS)
+      sessionStorage.setItem(SIDEBAR_HIDDEN_KEY, 'true')
+
+  # Restore most recent list visibility state on page load
+  if sessionStorage.getItem(SIDEBAR_HIDDEN_KEY)?
+    $('body').addClass(HIDE_SIDEBAR_CLASS)
 
   # List navigation
-  key 'c, shift+c', -> loadSearch 'class_list.html', 'class_list_link'
-  key 'm, shift+m', -> loadSearch 'method_list.html', 'method_list_link'
-  key 'i, shift+i', -> loadSearch 'mixin_list.html', 'mixin_list_link'
-  key 'e, shift+e', -> loadSearch 'extra_list.html', 'extra_list_link'
+  key 'c, shift+c', window.openClassList
+  key 'm, shift+m', window.openMethodList
+  key 'i, shift+i', window.openMixinList
+  key 'e, shift+e', window.openExtraList
 
   # Show help
   key 'h, shift+h', ->
-    try
-      parent.frames.main.$('#help').toggle()
-    catch
-      try
-        $('#help').toggle()
+    $('#help').toggle()
 
   # Fuzzy class search
   key 't, shift+t', (e) ->
     e.preventDefault()
 
-    try
-      $('#fuzzySearch').toggle()
-      $('#fuzzySearch input').focus().select()
-
-    try
-      parent.frames.main.$('#fuzzySearch').show()
-      parent.frames.main.$('#fuzzySearch input').focus().select()
+    $('#fuzzySearch').toggle()
+    $('#fuzzySearch input').focus().select()

@@ -1,0 +1,20 @@
+- createLevel = (tree) =>
+  %ul
+    - for entry in tree
+      %li
+        - if entry.entity
+          %a{href: @pathFor('mixin', entry.entity, @path)}
+            = entry.entity.basename
+          - if entry.entity.parent
+            %small.parent
+              <
+              = entry.entity.parent.name
+          %small.namespace
+            = entry.entity.namespace
+        - else
+          %span
+            = entry.name
+
+      = createLevel(entry.children) if entry.children.length > 0
+
+= createLevel @tree

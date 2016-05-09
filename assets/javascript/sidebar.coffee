@@ -1,8 +1,23 @@
 $ ->
+  OPEN_LIST_KEY = 'open_list'
+
+  openList = (klass) ->
+    $('.toggled').removeClass('visible')
+    $(".toggled.#{klass}").addClass('visible')
+    sessionStorage.setItem(OPEN_LIST_KEY, klass)
+
+  # Reopen most recently opened list on page load
+  if klass = sessionStorage.getItem(OPEN_LIST_KEY)
+    openList(klass)
+
+  window.openClassList = -> openList('class_list')
+  window.openMethodList = -> openList('method_list')
+  window.openMixinList = -> openList('mixin_list')
+  window.openExtraList = -> openList('extra_list')
 
   # Create stripes
   window.createStripes = ->
-    $('#content.list li:visible').each (i, el) ->
+    $('.list li').each (i, el) ->
       if i % 2 is 0 then $(el).addClass('stripe') else $(el).removeClass('stripe')
 
   # Indent nested Lists
@@ -15,7 +30,7 @@ $ ->
   #
   # Add tree arrow links
   #
-  $('#content.tree ul > ul').each ->
+  $('.tree ul > ul').each ->
     $(@).prev().prepend $('<a href="#" class="toggle"></a>')
 
   #
@@ -25,17 +40,17 @@ $ ->
     search = $(@).val().toLowerCase()
 
     if search.length == 0
-      $('#content.list ul li').each ->
-        if $('#content').hasClass 'tree'
+      $('.list ul li').each ->
+        if $('.list').hasClass 'tree'
           $(@).removeClass 'result'
           $(@).css 'padding-left', $(@).data 'padding'
         $(@).show()
     else
-      $('#content.list ul li').each ->
+      $('.list ul li').each ->
         if $(@).find('a').text().toLowerCase().indexOf(search) == -1
           $(@).hide()
         else
-          if $('#content').hasClass 'tree'
+          if $('.list').hasClass 'tree'
             $(@).addClass 'result'
             padding = $(@).css('padding-left')
             $(@).data 'padding', padding unless padding == '0px'
@@ -45,17 +60,9 @@ $ ->
     window.createStripes()
 
   #
-  # Navigate from a Search List
-  #
-  $('body #content.list ul').on 'click', 'li', (event) ->
-    link = $(@).find('a:not(.toggle)').attr('href')
-    top.frames['main'].location.href = link if link && link != '#'
-    event.preventDefault()
-
-  #
   # Collapse/expand sub trees
   #
-  $('#content.tree a.toggle').click ->
+  $('.tree a.toggle').click ->
     $(@).toggleClass 'collapsed'
     $(@).parent().next().toggle()
     window.createStripes()
@@ -63,5 +70,5 @@ $ ->
   #
   # Initialize
   #
-  indentTree $('#content.list > ul'), 20
+  indentTree $('.list > ul'), 20
   createStripes()

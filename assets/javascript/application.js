@@ -4,4 +4,3 @@
 //= require ./toc
 //= require ./keys
 //= require ./fuzzy
-//= require ./frames
