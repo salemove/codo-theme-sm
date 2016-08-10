@@ -79,7 +79,7 @@
       .events
         %h3 Events:
         - for event in @documentation.events
-          .event
+          .event{ id: "#{event.name}-event" }
             %p.signature
               = event.name
             != @render('partials/documentation', documentation: event.documentation)
