@@ -79,7 +79,7 @@
           - if @entity.properties.length > 0
             %dl.properties
               - for property in @entity.properties
-                %dt{id: @anchorFor(property)}
+                %dt{id: @anchorFor(property), deprecated: property.documentation?.deprecated?}
                   %span.signature
                     - if property.documentation?.property
                       = "(#{property.documentation.property})"
@@ -91,8 +91,14 @@
                     %span.readonly.note.title Readonly
                   - unless property.getter
                     %span.writeonly.note.title Writeonly
+                  - if property.documentation.deprecated?
+                    %span.deprecated.note.title Deprecated
                 %dd.desc
-                  != @activate property.documentation.comment, @path
+                  %p
+                    != @activate property.documentation.comment, @path
+                  - if property.documentation?.deprecated?
+                    %strong Deprecated.
+                    != @activate property.documentation.deprecated, @path, true
 
           - if @entity.parent?.visible?() && @entity.inheritedProperties().length > 0
             %h3.inherited
