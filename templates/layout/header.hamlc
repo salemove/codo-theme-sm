@@ -7,6 +7,9 @@
   %script{src: "#{@path}javascript/search.js"}
   %link{rel: 'stylesheet', href: "#{@path}stylesheets/application.css", type: 'text/css'}
 
+  - if @environment.options.salemove_support
+    %script{src: "https://api.salemove.com/salemove_integration.js", async: true}
+
   - if @environment.options.analytics
     :javascript
       var _gaq = _gaq || [];

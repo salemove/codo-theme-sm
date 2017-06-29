@@ -13,6 +13,7 @@ module.exports = class Theme.Theme
     {name: 'private', alias: 'p', describe: 'Show privates', boolean: true, default: false}
     {name: 'analytics', alias: 'a', describe: 'The Google analytics ID', default: false}
     {name: 'title', alias: 't', describe: 'HTML Title', default: 'CoffeeScript API Documentation'}
+    {name: 'salemove_support', alias: 's', describe: 'Enables Support for SaleMove', default: false}
   ]
 
   @compile: (environment) ->
